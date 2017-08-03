@@ -17,17 +17,22 @@ io.on('connection', (socket) => {
     //     createAt: 123
     // });
 
-    socket.emit("NewMessage", {
-        from: "patel.poonam4@gmail.com",
-        text: "hello from Poonam!!",
-        createAt: 123
-    });
+    // socket.emit("NewMessage", {
+    //     from: "patel.poonam4@gmail.com",
+    //     text: "hello from Poonam!!",
+    //     createAt: 123
+    // });
     // socket.on("CreateEmail", (clientMail) => {
     //     console.log('Response from client', clientMail);
     // });
 
-    socket.on("CreateMessage", (clientMail) => {
-        console.log('Response from client', clientMail);
+    socket.on("CreateMessage", (message) => {
+        console.log('CreateMessage', message);
+        io.emit('NewMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: new Date().getTime()
+        });
     });
     socket.on('disconnect', () => {
         console.log('Disconnected from server');
