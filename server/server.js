@@ -26,13 +26,30 @@ io.on('connection', (socket) => {
     //     console.log('Response from client', clientMail);
     // });
 
+         socket.emit('NewMessage',{
+            from:"Server",
+            text:"welcome to chat app",
+            createdAt:new Date().getDate()
+        });
+        socket.broadcast.emit('NewMessage',{
+            from:"Admin",
+            text:"New User Added",
+            createdAt:new Date().getDate()
+        });
+
     socket.on("CreateMessage", (message) => {
         console.log('CreateMessage', message);
-        io.emit('NewMessage', {
-            from: message.from,
-            text: message.text,
-            createdAt: new Date().getTime()
-        });
+        // io.emit('NewMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     createdAt: new Date().getTime()
+        // });
+        //  socket.broadcast.emit('NewMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     createdAt: new Date().getTime()
+        // });
+
     });
     socket.on('disconnect', () => {
         console.log('Disconnected from server');
